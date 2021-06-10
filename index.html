@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IVY TECH Log Searcher</title>
+    
+    
+    
+
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/waitMe.min.css">
+    <link rel="stylesheet" href="./css/lightbox.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+     
+     
+</head>
+<body>
+        <div class="modal fade" id="photoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="photoModalTitle"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <img class= "img-fluid" src="" alt="">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="videoModalTitle"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <video>
+                                <source src="" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="arcModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="arcModalTitle"></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="orbit">
+                                    <a href='http://www.adobe.com/go/getflashplayer'>
+                                    <img src='http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif' alt='Get Adobe Flash player' /></a>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body justify-content-xs-center ">
+                        <div class="justify-content-xs-center">
+                            <img src="./img/Logo.png" class="mx-auto d-block" alt="logo">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-sm-6">
+               
+                <ul class="nav nav-pills mb-2" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active show" id="pills-allCategories-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-allCategories" aria-selected="true">All Categories</a>
+                   </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="pills-videos-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-videos" aria-selected="false">Videos</a>
+                    </li>
+                 </ul>
+                  <form id="serial-form">
+                    <div class="form-group">
+                    <center><a class="lead" href="http://10.106.12.26/ACS/">xPoprzednia wyszukiwarka/</a></center> 
+                    <label for="serial">Local - Unit SN:</label>
+                    <input type="text" class="form-control " id="serial input-allCategories" aria-describedby="serialHelp" placeholder="Enter serial number">
+                    <small id="serialHelp" class="form-text text-muted">Enter at least 4 chars.</small>    
+                    <button type="submit" class="btn btn-primary">Search!</button>          
+                </div>
+     
+
+            </form>
+                  
+            <form id="serial-form1">
+                <div class="form-group">
+                    <center><a class="lead" href="http://10.106.12.26/ACS/">xPoprzednia wyszukiwarka/</a></center>
+                     <label for="serial">Local - Unit SN:</label>
+                <input type="text" class="form-control videos" id="serial" aria-describedby="serialHelp" placeholder="Enter serial number">
+                <small id="serialHelp small1" class="form-text text-muted">Enter at least 4 chars.</small>   
+                <button type="submit" class="btn btn-primary btn2">Search!</button>  
+            </div>                 
+            </form>
+            
+                
+            </div>
+        </div>
+
+              <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade active " id="pills-allCategories" role="tabpanel" aria-labelledby="pills-allCategories-tab">
+                    <div class="row justify-content-md-center">
+                        <table class="table" id="arc-table"></table>
+                        <!-- <table class="table" id="recam-table"></table> -->
+                        <table class="table" id="photos-table"></table>
+                        <table class="table" id="customers-table"></table>
+                    </div>
+                </div>
+                <div class="tab-pane fade show " id="pills-videos" role="tabpanel" aria-labelledby="pills-videos-tab">
+                    <table class="table" id="recam-table"></table>
+                </div>
+              </div>
+            
+    
+            <!-- <div class="row justify-content-md-center">
+                <table class="table" id="arc-table"></table>
+                <table class="table" id="recam-table"></table>
+                <table class="table" id="photos-table"></table>
+                <table class="table" id="customers-table"></table>
+            </div> -->
+        </div>
+
+
+
+    
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+    <script type="text/javascript" src="./js/popper.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/lightbox.min.js"></script>
+    <script type="text/javascript" src="./js/waitMe.min.js"></script>
+    <script type="text/javascript" src="./ACS/orbitvu12/swfobject.js"></script>
+    <script type="text/javascript" src="./ACS/orbitvu12/orbitvu.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+
+</body>
+</html>
