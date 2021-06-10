@@ -62,9 +62,9 @@ $("#pills-videos-tab").click(function(){
 })
 
 
-
 $('#serial-form1').on('submit', function(event){
 	event.preventDefault();
+	
 	let serial = $('.videos').val().trim();
 	if (serial.length < 4 || (!($("#pills-videos").hasClass('active')) && !($("#pills-allCategories").hasClass('active'))))
 	{
@@ -79,130 +79,92 @@ $('#serial-form1').on('submit', function(event){
 	$('small').removeClass('error');
 	console.log(serial);
 	
-	$('#recam-table').empty();
+	$('#containerDiv').empty();
 	
-    $("#recam-table").append(`<thead>
-                                <tr><th scope="col">Recam Videos:</th></tr>
-                                <tr><th scope="col" class="info"><div class="alert alert-info" role="alert">Please wait...</div></th></tr>
-                                </thead>`)
-    
-	$('#recam-table').waitMe();
+    // $("#recam-table").append(
+	// 							`<thead>
+    //                             <tr><th scope="col">Recam Videos:</th></tr>
+    //                             <tr><th scope="col" class="info"><div class="alert alert-info" role="alert">Please wait...</div></th></tr>
+    //                             </thead>`)
+	// $('#recam-table').waitMe();
 	
 	$.ajax({
 		url: 'api.php',
 		method: 'POST',
 		data: {
 			serial: serial,
-			action: 'getVideos'
+			action: 'getYTVideos'
 		},
 		success: function (resp) {
-			$('#recam-table').waitMe('hide');
-			$('#recam-table').empty();
+			/////////////////////////////////////////////////
+			/////////////////////////////////////////////////
+			let i = 0
 			let response = JSON.parse(resp);
-			let siteurl;
-			if ((window.location.href).toLowerCase().endsWith('html'))
-			{
-				let temp = window.location.href.split('/');
-				temp.pop();
-				siteurl = temp.join('/')+'/';
+			response.forEach((r)=>{
+				let source =r;
+				let title = source.slice(7, -4)
+				
+				i++
+				$("#containerDiv").append(
+					`			<div class="card" style="width: 25%; height:25%">
 
-			}
-			else
-			{
-				siteurl = window.location.href;
-			}
-			$('#recam-table').append('<thead><tr><th scope="row" colspan="2">Recam Videos:</th></tr></thead><tbody>');
-		if(response.videos.length>0)
-		{
+								<video class="card-img-top" src="${source}" href="#myModal"  data-toggle="modal" id="myvideo${+ i}" alt="Card image cap">
+								<source src="${source}" type="video/mp4"></video>
+								<div class="card-body">
+								<p class="card-text">${title}</p>
+							  </div>
+								
+								
+								
+								</div>
+								
+							
+                                `)
+								document.getElementById(`myvideo${+ i}`).currentTime = 50;
 
+// $('#recam-table').waitMe();
 
-			$.each(response.videos, function(index, value){
-				if (value.toLowerCase().endsWith('mp4'))
-				{
-					$('#recam-table').append(`<tr><td><button type="button" class="btn btn-link" data-toggle="modal" data-target="#videoModal" data-url="${encodeURI(siteurl+value).replace('#', '%23')}">${value.split('/').pop()}</button></td>
-					        <td class="text-right">
-							<button class="btn btn-sm btn-outline-primary copy-button" data-fname="${value.split('/').pop()}" data-toggle="tooltip" data-placement="top" title="Copy filename to clipboard">
-								<i class="material-icons align-middle">assignment</i>
-							</button>
-							</td></tr>`);
-				}
-				else
-				{
-					$('#recam-table').append(`<tr><td><div class="btn btn-link"><a href="${encodeURI(siteurl+value).replace('#', '%23')}">${value.split('/').pop()}</a></div></td>
-					        <td class="text-right">
-							<button class="btn btn-sm btn-outline-primary copy-button" data-fname="${value.split('/').pop()}" data-toggle="tooltip" data-placement="top" title="Copy filename to clipboard">
-								<i class="material-icons align-middle">assignment</i>
-							</button>
-							</td></tr>`);
-
-				}
 			});
-			$('#recam-table').append('</tbody>');
-			//console.log(response.videos);
-		}
 
-		else {
-				$("#recam-table").append('<thead><tr><th scope="col" class="danger"><div class="alert alert-danger" role="alert">No videos found!</div></th></tr></thead><tbody>')
-			}
+
+			/////////////////////////////////////////////////////
+			////////////////////////////////////////////////////
 		},
+		
 		error: function(err){
 			console.log(err);
 			$('#recam-table').waitMe('hide');
-		}
-	});
-	$.ajax({
-		url: 'api.php',
-		method: 'POST',
-		data: {
-			serial: serial,
-			action: 'getArc'
-		},
-		success: function (resp) {
-			$('#arc-table').waitMe('hide');
-			$('#arc-table').empty();
-			let response = JSON.parse(resp);
-			let siteurl;
-			if ((window.location.href).toLowerCase().endsWith('html'))
-			{
-				let temp = window.location.href.split('/');
-				temp.pop();
-				siteurl = temp.join('/')+'/';
-
-			}
-			else
-			{
-				siteurl = window.location.href;
-			}
-			$('#arc-table').append('<thead><tr><th scope="row" colspan="2">Arc Tools Photos:</th></tr></thead><tbody>');
-			if(response.arc.length>0)
-			{
-
-
-                $.each(response.arc, function(index, value){
-                    //$('#arc-table').append(`<tr><td><div class="btn btn-link" onclick="openInNewTab('${siteurl+value}');">${value.split('/').pop()}</div></td></tr>`);
-                    $('#arc-table').append(`<tr><td><button type="button" class="btn btn-link" data-toggle="modal" data-target="#arcModal" data-url="${siteurl+value}">${value.split('/').pop()}</button></td>
-							<td class="text-right">
-							<button class="btn btn-sm btn-outline-primary copy-button" data-fname="${value.split('/').pop()}" data-toggle="tooltip" data-placement="top" title="Copy filename to clipboard">
-								<i class="material-icons align-middle">assignment</i>
-							</button>
-							</td></tr>`);
-                });
-                $('#arc-table').append('</tbody>');
-
-			}
-
-			else {
-				$("#arc-table").append('<thead><tr><th scope="col" class="danger"><div class="alert alert-danger" role="alert">No arc presentation found!</div></th></tr></thead><tbody>')
-			}
-		},
-		error: function(err){
-			console.log(err);
-			$('.recam-table').waitMe('hide');
 		}
 	});
 
  	}
 });
+
+
+$(document).ready(function(){
+
+	document.addEventListener('click' , (e) => {
+		let myVid= e.target.id;
+
+		if(document.getElementById(myVid) != null){
+			let elem = document.getElementById(myVid).src;
+			$("#myModal").on('shown.bs.modal', function(){
+				$("#cartoonVideo").attr('src', elem);
+				let allVideos = document.querySelectorAll('video');
+				for(let i = 0 ; i<allVideos.length;i++){
+							allVideos[i].pause();
+				}
+			});
+		}else {
+		}
+	})
+	// document.getElementById('myvideo1').addEventListener('loadedmetadata', function() {
+	// 	this.currentTime = 50;
+	//   }, false);
+
+});
+
+
 
 $('#serial-form').on('submit', function(event){
 	event.preventDefault();

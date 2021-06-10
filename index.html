@@ -115,14 +115,12 @@
                   
             <form id="serial-form1">
                 <div class="form-group">
-                    <center><a class="lead" href="http://10.106.12.26/ACS/">xPoprzednia wyszukiwarka/</a></center>
-                     <label for="serial">Local - Unit SN:</label>
-                <input type="text" class="form-control videos" id="serial" aria-describedby="serialHelp" placeholder="Enter serial number">
+                <label for="serial">Search</label>
+                <input type="text" class="form-control videos" id="serial" aria-describedby="serialHelp" placeholder="Enter Search Phase">
                 <small id="serialHelp small1" class="form-text text-muted">Enter at least 4 chars.</small>   
                 <button type="submit" class="btn btn-primary btn2">Search!</button>  
             </div>                 
             </form>
-            
                 
             </div>
         </div>
@@ -137,9 +135,33 @@
                     </div>
                 </div>
                 <div class="tab-pane fade show " id="pills-videos" role="tabpanel" aria-labelledby="pills-videos-tab">
-                    <table class="table" id="recam-table"></table>
+                    <table class="table" >
+                        <tr scope="col" class="info" id="recam-table"> </tr>   
+                    </table>
+                    <div class="d-flex flex-wrap" id="containerDiv">
+
+                        
+
+                    </div>
                 </div>
-              </div>
+    
+                <div class="bs-example">
+                    <!-- Modal HTML -->
+                    <div id="myModal" class="modal fade">
+                        <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>                
+                                </div>
+                                <div class="modal-body">
+                                    <div class="embed-responsive embed-responsive-16by9">
+                                        <iframe  id="cartoonVideo" class="embed-responsive-item" width="880" height="430" src="" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>     
             
     
             <!-- <div class="row justify-content-md-center">
@@ -152,7 +174,6 @@
 
 
 
-    
     <script type="text/javascript" src="./js/jquery.min.js"></script>
     <script type="text/javascript" src="./js/popper.min.js"></script>
     <script type="text/javascript" src="./js/bootstrap.min.js"></script>
